@@ -1,0 +1,19 @@
+{
+    "alldata":{
+        "testdata01":{
+            "email":"jhon1@gmail.com",
+            "password":"test@123"
+        },
+         "testdata02":{
+        
+            "productid":"089",
+            "productname":"nokia",
+            "productdescription":"1100",
+            "productprice":"20000",
+            "color":"red"
+
+        }
+
+    }
+        
+}

@@ -1,12 +1,21 @@
 import { BrowserContext, Locator,Page,TestInfo} from '@playwright/test';
-import { url } from 'node:inspector';
-import { Url } from 'node:url';
+
 export class playwrightgenerics{
+   readonly page:Page
+    constructor(p:Page){
+        this.page=p
+
+    }
     //dropdown
-    async dropdown(ele:Locator,valuetoselect:string): Promise<void>{
-        await ele.selectOption({label:"valuetoselect"})
+    async dropdownusingLabel(ele:Locator,valuetoselect:string): Promise<void>{
+        await ele.selectOption({label:valuetoselect})
         console.log(valuetoselect);
         
+    }
+    async dropdownusingIndex(ele:Locator,valuetoselect:number):Promise<void>
+    {
+        await ele.selectOption({index:valuetoselect})
+
     }
     async dropdownCountvalue(ele:Locator): Promise<void>{
         await ele.count()
@@ -37,26 +46,8 @@ export class playwrightgenerics{
        
         
     }
-    //windowhandling
     
-    async openMultiplepage(page1:Page,page2:Page,url1:string,url2:string):Promise<void>{
-      await page1.goto(url1)
-      await page1.goto(url2)
-      console.log("multiple page ");
-      
-
-        
-    }
-    async openChildwindow(context:BrowserContext,page:Page,ele:Locator,url:string):Promise<void>{
-        
-       page = await context.newPage()
-       page.goto(url)
-       const childWindow= context.waitForEvent("page")
-       await ele.click()
-       const childw=await childWindow
-      console.log("childwindow",childw.url());
-    }
-
+   
     //screenshot
     async takeScreenshot(page:Page,sspath:string){
          await page.screenshot({path:sspath})
@@ -102,13 +93,8 @@ export class playwrightgenerics{
         console.log("Value entered as",valueToEnter);
         
     }
-     async enterNumber(ele:Locator,value:number):Promise<void>
-    {
-        await ele.fill(value)
-        console.log("Value entered as",value);
-        
-    }
-   
+    
+   //alert
     async clearText(ele:Locator):Promise<void>
     {
         await ele.clear()
@@ -126,6 +112,18 @@ export class playwrightgenerics{
         const data = await ele.textContent()
         console.log("Element text is",data); 
         return data || ""        
+    }
+    async alertAccept(page:Page):Promise<void>
+    {
+        page.once("dialog",async(dialog)=>{
+            await dialog.accept()
+        })
+    }
+     async alertDismiss(page:Page):Promise<void>
+    {
+        page.once("dialog",async(dialog)=>{
+            await dialog.dismiss()
+        })
     }
 
     
