@@ -17,6 +17,6 @@ const testdata1 = alldata.testdata02
  await page.goto("https://playground.bsparksoftwaretechnologies.com/login")
 await loginobj.login(testdata.email,testdata.password)
 await homepageobj.producteleclik()
-await productobj.createproductform(testdata1.productid,testdata1.productname,testdata1.productdescription,testdata1.productprice)
+await productobj.createproductform(testdata1.productid,testdata1.productname,testdata1.productdescription,testdata1.productprice,testdata1.color)
 
 })
